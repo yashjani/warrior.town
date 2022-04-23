@@ -1,0 +1,73 @@
+package com.thewarriors.us.service;
+
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.Hashtable;
+
+import org.jfree.graphics2d.svg.SVGGraphics2D;
+import org.jfree.graphics2d.svg.ViewBox;
+import org.springframework.stereotype.Service;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+@Service
+public class QRCodeService {
+
+	public String getQRCodeSvg(String backGroundColor, String targetUrl, int width, int height, boolean withViewBox) {
+		SVGGraphics2D g2 = new SVGGraphics2D(width, height);
+		BufferedImage qrCodeImage = getQRCode(backGroundColor, targetUrl, width, height);
+		g2.drawImage(qrCodeImage, 10, 10, width, height, null);
+
+		ViewBox viewBox = null;
+		if (withViewBox) {
+			viewBox = new ViewBox(0, 0, width, height);
+		}
+		return g2.getSVGElement(null, true, viewBox, null, null);
+	}
+
+	public BufferedImage getQRCode(String backGroundColor, String targetUrl, int width, int height) {
+		try {
+			Hashtable<EncodeHintType, Object> hintMap = new Hashtable<>();
+
+			hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+			QRCodeWriter qrCodeWriter = new QRCodeWriter();
+			BitMatrix byteMatrix = qrCodeWriter.encode(targetUrl, BarcodeFormat.QR_CODE, width, height, hintMap);
+			int CrunchifyWidth = byteMatrix.getWidth();
+
+			BufferedImage image = new BufferedImage(CrunchifyWidth, CrunchifyWidth, BufferedImage.TYPE_INT_RGB);
+			image.createGraphics();
+
+			/*Graphics2D graphics = (Graphics2D) image.getGraphics();
+			String[] backGround = backGroundColor.split(",");
+			Color color = new Color(Integer.valueOf(backGround[0]), Integer.valueOf(backGround[1]),
+					Integer.valueOf(backGround[2]));
+			graphics.setColor(color);*/
+			AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f);
+			Graphics2D g2d = (Graphics2D) image.getGraphics();
+			g2d.setComposite(composite);
+			g2d.setColor(new Color(0, 0, 0, 0));
+			g2d.fillRect(0, 0, 10, 10);
+
+			for (int i = 0; i < CrunchifyWidth; i++) {
+				for (int j = 0; j < CrunchifyWidth; j++) {
+					if (byteMatrix.get(i, j)) {
+						g2d.fillRect(i, j, 1, 1);
+					}
+				}
+			}
+			return image;
+		} catch (WriterException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Error getting QR Code");
+		}
+
+	}
+
+}
