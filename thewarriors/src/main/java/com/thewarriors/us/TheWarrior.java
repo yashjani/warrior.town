@@ -47,9 +47,9 @@ public class TheWarrior implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		//photoService.saveName();
-	//	metadataService.addNewLayers();
+	   //	metadataService.addNewLayers();
 		//svgCreationService.dfs(0, new HashSet<>(), ColorConstants.bronzeOrder, new Stack<>(), "", "","Bronze");
-		svgCreationService.dfs(0, new HashSet<>(), ColorConstants.silverOrder, new Stack<>(), "", "","Silver");	
+		//svgCreationService.dfs(0, new HashSet<>(), ColorConstants.silverOrder, new Stack<>(), "", "","Silver");	
 		//svgCreationService.dfs(0, new HashSet<>(), ColorConstants.goldOrder, new Stack<>(), "", "","Gold");
 		
 	}

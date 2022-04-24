@@ -15,6 +15,7 @@ public class EnitytoDtoConversion {
 		photoDto.setId(String.valueOf(photo.getId()));
 		photoDto.setName(photo.getName());
 		photoDto.setOpenseaLink(photo.getOpenseaLink());
+		photoDto.setAwsLink("https://warriorimages.s3.amazonaws.com/"+photo.getId()+".png");
 		if(includeDetails) {
 			List<SumoLayer> sumoLayers = photo.getSumolayers();
 			List<SumoLayerDto> details = new ArrayList<>();

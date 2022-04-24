@@ -7,6 +7,7 @@ public class PhotoDto {
 	private String id;
 	private String name;
 	private String openseaLink;
+	private String awsLink;
 	private List<SumoLayerDto> details;
 	private int pageNumber;
 
@@ -50,11 +51,21 @@ public class PhotoDto {
 		this.pageNumber = pageNumber;
 	}
 
+	public String getAwsLink() {
+		return awsLink;
+	}
+
+	public void setAwsLink(String awsLink) {
+		this.awsLink = awsLink;
+	}
+
 	@Override
 	public String toString() {
-		return "PhotoDto [id=" + id + ", name=" + name + ", openseaLink=" + openseaLink + ", details=" + details
-				+ ", pageNumber=" + pageNumber + "]";
+		return "PhotoDto [id=" + id + ", name=" + name + ", openseaLink=" + openseaLink + ", awsLink=" + awsLink
+				+ ", details=" + details + ", pageNumber=" + pageNumber + "]";
 	}
+
+	
 
 	
 }

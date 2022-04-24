@@ -1,15 +1,12 @@
 package com.thewarriors.us.service;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
-
 import org.jfree.graphics2d.svg.SVGGraphics2D;
 import org.jfree.graphics2d.svg.ViewBox;
 import org.springframework.stereotype.Service;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -19,7 +16,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 @Service
 public class QRCodeService {
-
+	
 	public String getQRCodeSvg(String backGroundColor, String targetUrl, int width, int height, boolean withViewBox) {
 		SVGGraphics2D g2 = new SVGGraphics2D(width, height);
 		BufferedImage qrCodeImage = getQRCode(backGroundColor, targetUrl, width, height);
@@ -44,21 +41,20 @@ public class QRCodeService {
 			BufferedImage image = new BufferedImage(CrunchifyWidth, CrunchifyWidth, BufferedImage.TYPE_INT_RGB);
 			image.createGraphics();
 
-			/*Graphics2D graphics = (Graphics2D) image.getGraphics();
+		    Graphics2D graphics = (Graphics2D) image.getGraphics();
 			String[] backGround = backGroundColor.split(",");
 			Color color = new Color(Integer.valueOf(backGround[0]), Integer.valueOf(backGround[1]),
 					Integer.valueOf(backGround[2]));
-			graphics.setColor(color);*/
-			AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f);
-			Graphics2D g2d = (Graphics2D) image.getGraphics();
-			g2d.setComposite(composite);
-			g2d.setColor(new Color(0, 0, 0, 0));
-			g2d.fillRect(0, 0, 10, 10);
+			graphics.setColor(color);
+			graphics.fillRect(0, 0, CrunchifyWidth, CrunchifyWidth);
+			Color color1 = new Color(255- Integer.valueOf(backGround[0]), 255 - Integer.valueOf(backGround[1]),
+					255 - Integer.valueOf(backGround[2]));
+			graphics.setColor(color1);
 
 			for (int i = 0; i < CrunchifyWidth; i++) {
 				for (int j = 0; j < CrunchifyWidth; j++) {
 					if (byteMatrix.get(i, j)) {
-						g2d.fillRect(i, j, 1, 1);
+						graphics.fillRect(i, j, 1, 1);
 					}
 				}
 			}
@@ -66,7 +62,11 @@ public class QRCodeService {
 		} catch (WriterException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Error getting QR Code");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return null;
 
 	}
 

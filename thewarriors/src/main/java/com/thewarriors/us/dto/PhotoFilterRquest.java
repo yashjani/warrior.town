@@ -1,19 +1,19 @@
 package com.thewarriors.us.dto;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PhotoFilterRquest {
 
-	private Map<String, List<String>> filters = new HashMap<>();
+	private  List<FilterDto> filters;
 	private int pageNumber = 0;
 
-	public Map<String, List<String>> getFilters() {
+	
+
+	public List<FilterDto> getFilters() {
 		return filters;
 	}
 
-	public void setFilters(Map<String, List<String>> filters) {
+	public void setFilters(List<FilterDto> filters) {
 		this.filters = filters;
 	}
 

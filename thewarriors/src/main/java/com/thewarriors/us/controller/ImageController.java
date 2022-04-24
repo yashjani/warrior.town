@@ -1,7 +1,6 @@
 package com.thewarriors.us.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.thewarriors.us.dto.FilterDto;
 import com.thewarriors.us.dto.PhotoDto;
 import com.thewarriors.us.dto.PhotoFilterRquest;
 import com.thewarriors.us.service.MetadataService;
@@ -19,7 +19,7 @@ import com.thewarriors.us.service.PhotoService;
 
 @RestController
 @RequestMapping("gallery")
-@CrossOrigin(origins = { "https://www.warrior.town" })
+@CrossOrigin(origins = { "https://www.warrior.town","http://127.0.0.1:3000" })
 public class ImageController {
 	
 	@Autowired
@@ -29,7 +29,7 @@ public class ImageController {
 	MetadataService metadataService;
 		
 	@GetMapping(path = "/filters")
-	public Map<String, List<String>>  getSumoFilters() {
+	public List<FilterDto>  getSumoFilters() {
 		return metadataService.getLayers();
 	}
 	

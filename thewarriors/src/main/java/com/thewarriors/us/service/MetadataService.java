@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.thewarriors.us.dto.FilterDto;
 import com.thewarriors.us.dto.PhotoDto;
 import com.thewarriors.us.entity.Photo;
 import com.thewarriors.us.entity.SumoLayer;
@@ -90,16 +91,20 @@ public class MetadataService {
 	}
 	
 	
-	public Map<String, List<String>> getLayers() {
+	public List<FilterDto> getLayers() {
 		Iterable<SumoLayer> sumoLayers = sumoLayerRepository.findAll();
-		Map<String, List<String>> sumoLayerResponse = new HashMap<>();
+		FilterDto filterDto = null;
+		Map<String, FilterDto> map = new HashMap<>();
 		for(SumoLayer sumoLayer : sumoLayers) {
-			if(!sumoLayerResponse.containsKey(sumoLayer.getName())) {
-				sumoLayerResponse.put(sumoLayer.getName(), new ArrayList<>());
+			if(!map.containsKey(sumoLayer.getName())){
+				filterDto = new FilterDto();
+				filterDto.setFilterType(sumoLayer.getName());
+				map.put(sumoLayer.getName(), filterDto);
 			}
-			sumoLayerResponse.get(sumoLayer.getName()).add(sumoLayer.getDescription());
+			map.get(sumoLayer.getName()).getFilterName().add(sumoLayer.getDescription());
 		}
-		return sumoLayerResponse;
+		return new ArrayList<>(map.values());
+
 	}
 	
 	public PhotoDto getPhotoDetails(int photoId){
