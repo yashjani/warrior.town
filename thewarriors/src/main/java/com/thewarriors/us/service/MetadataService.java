@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 
 import com.thewarriors.us.dto.FilterDto;
 import com.thewarriors.us.dto.PhotoDto;
+import com.thewarriors.us.dto.SkinToneDto;
 import com.thewarriors.us.entity.Photo;
 import com.thewarriors.us.entity.SumoLayer;
 import com.thewarriors.us.repo.PhotoRepository;
 import com.thewarriors.us.repo.SumoLayerRepository;
+import com.thewarriors.us.utility.ColorConstants;
 import com.thewarriors.us.utility.EnitytoDtoConversion;
 
 @Service
@@ -31,7 +33,7 @@ public class MetadataService {
 	
 	
 	
-	public String createJSONObject(Photo photo, Stack<Map.Entry<String, String>> stack, String type) {
+	public String createJSONObject(Photo photo, Stack<Map.Entry<String, String>> stack, String type, String skinColor) {
 		JSONObject jsonObject = new JSONObject();
 		List<SumoLayer> sumoLayers = new ArrayList<>();
 		SumoLayer sumoLayer = null;
@@ -43,11 +45,17 @@ public class MetadataService {
 			}
 			key = key.replace("_", " ").replace(".svg", "");
 			value = value.replace("_", " ").replace(".svg", "");
+			if(key.equals(value)) {
+				continue;
+			}
 			sumoLayer = sumoLayerRepository.findByDescriptionAndName(value,key);
 			sumoLayers.add(sumoLayer);
 			jsonObject.put(key, value);
 		}
 		jsonObject.put("Type", type);
+		jsonObject.put("Color", skinColor);
+		sumoLayer = sumoLayerRepository.findByDescriptionAndName(skinColor,"Color");
+		sumoLayers.add(sumoLayer);
 		saveRelation(photo,sumoLayers);
 		return jsonObject.toString();
 	}
@@ -77,7 +85,7 @@ public class MetadataService {
 					String layerType = arr[length - 2].replace("_", " ").replace(".svg", "");
 					String layerName = arr[length - 1].replace("_", " ").replace(".svg", "");
 					sumoLayer = sumoLayerRepository.findByDescriptionAndName(layerName, layerType);
-					if(sumoLayer != null || layerName.contains("glow") || layerName.contains(".DS")) {
+					if(sumoLayer != null || layerName.contains("glow") || layerName.contains(".DS") || layerType.equals(layerName)) {
 						continue;
 					}
 					sumoLayer = new SumoLayer();
@@ -86,6 +94,19 @@ public class MetadataService {
 					sumoLayerRepository.save(sumoLayer);
 				}
         	}
+        	//add colors
+        	List<SkinToneDto> skinTone = ColorConstants.skinColorTone.get(type);
+        	for(SkinToneDto skinToneDto : skinTone) {
+        		sumoLayer = sumoLayerRepository.findByDescriptionAndName(skinToneDto.getColorName(), "Color");
+				if(sumoLayer != null) {
+					continue;
+				}
+				sumoLayer = new SumoLayer();
+				sumoLayer.setDescription(skinToneDto.getColorName());
+				sumoLayer.setName("Color");
+				sumoLayerRepository.save(sumoLayer);
+        	}
+        	
 		}
        
 	}

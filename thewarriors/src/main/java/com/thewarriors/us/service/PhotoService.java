@@ -97,7 +97,6 @@ public class PhotoService {
 							resultPhoto.add(EnitytoDtoConversion.photoDtoconversion(photo, false));
 						}
 						photoIds.add(photo.getId());
-
 					}
 				}
 

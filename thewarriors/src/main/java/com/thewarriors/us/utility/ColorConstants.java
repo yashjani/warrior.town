@@ -5,21 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.thewarriors.us.dto.SkinToneDto;
+
 public class ColorConstants {
 	
 	public static List<String> goldOrder = new ArrayList<>();
 	public static List<String> silverOrder = new ArrayList<>();
 	public static List<String> bronzeOrder = new ArrayList<>();
-	public static List<String> skinColorList = new ArrayList<>();
+	public static Map<String, List<SkinToneDto>> skinColorTone = new HashMap<>();
 
 	public static Map<String, String> backGroundColorMap = new HashMap<>();
 
 	static {
 		goldOrder.add("Background");
-		goldOrder.add("Weapon");
+		goldOrder.add("Back_weapon");
 		goldOrder.add("Right_leg");
 		goldOrder.add("Left_leg");
-		goldOrder.add("Left_hand_weapon");
+		goldOrder.add("Weapon");
 		goldOrder.add("Right_hand");
 		goldOrder.add("Tummy");
 		goldOrder.add("Chest");
@@ -35,10 +37,10 @@ public class ColorConstants {
 		goldOrder.add("Body_glow");
 		
 		silverOrder.add("Background");
-		silverOrder.add("Weapon");
+		silverOrder.add("Back_weapon");
 		silverOrder.add("Right_leg");
 		silverOrder.add("Left_leg");
-		silverOrder.add("Left_hand_weapon");
+		silverOrder.add("Weapon");
 		silverOrder.add("Right_hand");
 		silverOrder.add("Tummy");
 		silverOrder.add("Chest");
@@ -53,10 +55,10 @@ public class ColorConstants {
 		silverOrder.add("Body_glow");
 		
 		bronzeOrder.add("Background");
-		bronzeOrder.add("Weapon");
+		bronzeOrder.add("Back_weapon");
 		bronzeOrder.add("Right_leg");
 		bronzeOrder.add("Left_leg");
-		bronzeOrder.add("Left_hand_weapon");
+		bronzeOrder.add("Weapon");
 		bronzeOrder.add("Right_hand");
 		bronzeOrder.add("Tummy");
 		bronzeOrder.add("Chest");
@@ -77,30 +79,99 @@ public class ColorConstants {
 		backGroundColorMap.put("Mountain desert.svg", "239,196,138");
 		backGroundColorMap.put("Sea.svg", "105,164,255");
 		
-		skinColorList.add("255,223,196");
-		skinColorList.add("240,213,190");
-		skinColorList.add("238,206,179");
-		skinColorList.add("225,184,153");
-		skinColorList.add("229,194,152");
-		skinColorList.add("255,220,178");
-		skinColorList.add("229,184,135");
-		skinColorList.add("229,160,115");
-		skinColorList.add("231,158,109");
-		skinColorList.add("219,144,101");
-		skinColorList.add("206,150,124");
-		skinColorList.add("198,120,86");
-		skinColorList.add("186,108,73");
-		skinColorList.add("165,114,87");
-		skinColorList.add("240,200,201");
-		skinColorList.add("221,168,160");
-		skinColorList.add("185,124,109");
-		skinColorList.add("168,117,108");
-		skinColorList.add("173,100,82");
-		skinColorList.add("92,56,54");
-		skinColorList.add("203,132,66");
-		skinColorList.add("189,114,60");
-		skinColorList.add("112,65,57");
-		skinColorList.add("163,134,106");
+		List<SkinToneDto> goldSkin = new ArrayList<>();
+		
+		goldSkin.add(new SkinToneDto("Bismark", "77,110,129"));
+//		goldSkin.add(new SkinToneDto("Vogue", "34,60,75"));
+//		goldSkin.add(new SkinToneDto("Bisque", "255,223,196"));
+//		goldSkin.add(new SkinToneDto("Champagne", "240,213,190"));
+//		goldSkin.add(new SkinToneDto("Desert Sand", "238,206,179"));
+//		goldSkin.add(new SkinToneDto("Pancho", "225,184,153"));
+		goldSkin.add(new SkinToneDto("Colonial White", "229,194,152"));
+//		goldSkin.add(new SkinToneDto("Navajo White", "255,220,178"));
+//		goldSkin.add(new SkinToneDto("Maize", "229,184,135"));
+//		goldSkin.add(new SkinToneDto("Dark Salmon", "229,160,115"));
+//		goldSkin.add(new SkinToneDto("Copper", "219,144,101"));
+//		goldSkin.add(new SkinToneDto("Feldspar", "206,150,124"));
+//		goldSkin.add(new SkinToneDto("Japonica", "198,120,86"));
+//		goldSkin.add(new SkinToneDto("Blue Lighter", "77,110,129"));
+//		goldSkin.add(new SkinToneDto("Flame Pea", "186,108,73"));
+//		goldSkin.add(new SkinToneDto("Au Chico", "165,114,87"));
+//		goldSkin.add(new SkinToneDto("Petite Orchid", "221,168,160"));
+//		goldSkin.add(new SkinToneDto("Brandy Rose", "185,124,109"));
+//		goldSkin.add(new SkinToneDto("Coral Tree", "168,117,108"));
+//		goldSkin.add(new SkinToneDto("Sante Fe", "173,100,82"));
+//		goldSkin.add(new SkinToneDto("Dark Brown", "92,56,54"));
+//		goldSkin.add(new SkinToneDto("Peru", "203,132,66"));
+//		goldSkin.add(new SkinToneDto("Brandy Punch", "189,114,60"));
+		goldSkin.add(new SkinToneDto("Bole", "112,65,57"));
+		goldSkin.add(new SkinToneDto("Sandal", "163,134,106"));		
+		
+		List<SkinToneDto> silverSkin = new ArrayList<>();
+
+		silverSkin.add(new SkinToneDto("Sunset", "191,75,84"));
+		silverSkin.add(new SkinToneDto("Red Berry", "120,31,38"));
+		silverSkin.add(new SkinToneDto("Blue Lighter", "77,110,129"));
+		silverSkin.add(new SkinToneDto("Blue Darker", "34,60,75"));
+		silverSkin.add(new SkinToneDto("Bisque", "255,223,196"));
+		silverSkin.add(new SkinToneDto("Champagne", "240,213,190"));
+		silverSkin.add(new SkinToneDto("Desert Sand", "238,206,179"));
+		silverSkin.add(new SkinToneDto("Pancho", "225,184,153"));
+		silverSkin.add(new SkinToneDto("Colonial White", "229,194,152"));
+		silverSkin.add(new SkinToneDto("Navajo White", "255,220,178"));
+		silverSkin.add(new SkinToneDto("Maize", "229,184,135"));
+		silverSkin.add(new SkinToneDto("Dark Salmon", "229,160,115"));
+		silverSkin.add(new SkinToneDto("Copper", "219,144,101"));
+		silverSkin.add(new SkinToneDto("Feldspar", "206,150,124"));
+		silverSkin.add(new SkinToneDto("Japonica", "198,120,86"));
+//		silverSkin.add(new SkinToneDto("Blue Lighter", "77,110,129"));
+//		silverSkin.add(new SkinToneDto("Flame Pea", "186,108,73"));
+//		silverSkin.add(new SkinToneDto("Au Chico", "165,114,87"));
+//		silverSkin.add(new SkinToneDto("Petite Orchid", "221,168,160"));
+//		silverSkin.add(new SkinToneDto("Brandy Rose", "185,124,109"));
+//		silverSkin.add(new SkinToneDto("Coral Tree", "168,117,108"));
+//		silverSkin.add(new SkinToneDto("Sante Fe", "173,100,82"));
+//		silverSkin.add(new SkinToneDto("Dark Brown", "92,56,54"));
+//		silverSkin.add(new SkinToneDto("Peru", "203,132,66"));
+//		silverSkin.add(new SkinToneDto("Brandy Punch", "189,114,60"));
+//		silverSkin.add(new SkinToneDto("Bole", "112,65,57"));
+//		silverSkin.add(new SkinToneDto("Sandal", "163,134,106"));	
+
+		List<SkinToneDto> bronzeSkin = new ArrayList<>();
+		
+		bronzeSkin.add(new SkinToneDto("Lusty", "120,46,44"));
+//		bronzeSkin.add(new SkinToneDto("Pixie Green", "184,211,169"));
+		bronzeSkin.add(new SkinToneDto("Olivetone", "116,113,40"));
+//		bronzeSkin.add(new SkinToneDto("Blue Lighter", "77,110,129"));
+		bronzeSkin.add(new SkinToneDto("Blue Darker", "34,60,75"));
+//		bronzeSkin.add(new SkinToneDto("Bisque", "255,223,196"));
+		bronzeSkin.add(new SkinToneDto("Champagne", "240,213,190"));
+//		bronzeSkin.add(new SkinToneDto("Desert Sand", "238,206,179"));
+		bronzeSkin.add(new SkinToneDto("Pancho", "225,184,153"));
+//		bronzeSkin.add(new SkinToneDto("Colonial White", "229,194,152"));
+		bronzeSkin.add(new SkinToneDto("Navajo White", "255,220,178"));
+//		bronzeSkin.add(new SkinToneDto("Maize", "229,184,135"));
+		bronzeSkin.add(new SkinToneDto("Dark Salmon", "229,160,115"));
+//		bronzeSkin.add(new SkinToneDto("Copper", "219,144,101"));
+		bronzeSkin.add(new SkinToneDto("Feldspar", "206,150,124"));
+//		bronzeSkin.add(new SkinToneDto("Japonica", "198,120,86"));
+		bronzeSkin.add(new SkinToneDto("Blue Lighter", "77,110,129"));
+//		bronzeSkin.add(new SkinToneDto("Flame Pea", "186,108,73"));
+		bronzeSkin.add(new SkinToneDto("Au Chico", "165,114,87"));
+//		bronzeSkin.add(new SkinToneDto("Petite Orchid", "221,168,160"));
+//		bronzeSkin.add(new SkinToneDto("Brandy Rose", "185,124,109"));
+//		bronzeSkin.add(new SkinToneDto("Coral Tree", "168,117,108"));
+//		bronzeSkin.add(new SkinToneDto("Sante Fe", "173,100,82"));
+		bronzeSkin.add(new SkinToneDto("Dark Brown", "92,56,54"));
+//		bronzeSkin.add(new SkinToneDto("Peru", "203,132,66"));
+//		bronzeSkin.add(new SkinToneDto("Brandy Punch", "189,114,60"));
+//		bronzeSkin.add(new SkinToneDto("Bole", "112,65,57"));
+//		bronzeSkin.add(new SkinToneDto("Sandal", "163,134,106"));	
+
+		
+		skinColorTone.put("Gold", goldSkin);
+		skinColorTone.put("Bronze", bronzeSkin);
+		skinColorTone.put("Silver", silverSkin);
 
 	}
 }

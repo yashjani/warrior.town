@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
+
 import org.jfree.graphics2d.svg.SVGGraphics2D;
 import org.jfree.graphics2d.svg.ViewBox;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -17,16 +20,19 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 @Service
 public class QRCodeService {
 	
+	@Autowired
+	ImageTransparency imageTransparency;
+	
 	public String getQRCodeSvg(String backGroundColor, String targetUrl, int width, int height, boolean withViewBox) {
 		SVGGraphics2D g2 = new SVGGraphics2D(width, height);
 		BufferedImage qrCodeImage = getQRCode(backGroundColor, targetUrl, width, height);
-		g2.drawImage(qrCodeImage, 10, 10, width, height, null);
+		g2.drawImage(qrCodeImage, 60, 50, 150, 150, null);
 
 		ViewBox viewBox = null;
 		if (withViewBox) {
-			viewBox = new ViewBox(0, 0, width, height);
+			viewBox = new ViewBox(0, 0, 1800, 1800);
 		}
-		return g2.getSVGElement(null, true, viewBox, null, null);
+		return g2.getSVGElement(null, false, viewBox, null, null);
 	}
 
 	public BufferedImage getQRCode(String backGroundColor, String targetUrl, int width, int height) {
@@ -43,8 +49,7 @@ public class QRCodeService {
 
 		    Graphics2D graphics = (Graphics2D) image.getGraphics();
 			String[] backGround = backGroundColor.split(",");
-			Color color = new Color(Integer.valueOf(backGround[0]), Integer.valueOf(backGround[1]),
-					Integer.valueOf(backGround[2]));
+			Color color = new Color(255,255,255);
 			graphics.setColor(color);
 			graphics.fillRect(0, 0, CrunchifyWidth, CrunchifyWidth);
 			Color color1 = new Color(255- Integer.valueOf(backGround[0]), 255 - Integer.valueOf(backGround[1]),
@@ -58,7 +63,7 @@ public class QRCodeService {
 					}
 				}
 			}
-			return image;
+			return imageTransparency.removeWhiteBg(image);
 		} catch (WriterException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Error getting QR Code");

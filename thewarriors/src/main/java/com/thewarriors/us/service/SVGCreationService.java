@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.thewarriors.us.dto.SkinToneDto;
 import com.thewarriors.us.entity.Photo;
 import com.thewarriors.us.utility.ColorConstants;
 
@@ -29,6 +30,9 @@ public class SVGCreationService {
 	
 	@Autowired
 	PhotoService photoService;
+	
+	@Autowired
+	ImageTransparency imageTransparency;
 
 	public String backGroundColor;
 	
@@ -95,15 +99,16 @@ public class SVGCreationService {
 		if (file.mkdir()) {
 			System.out.println("The new directory is created.");
 		} 
-		List<String> colorList = ColorConstants.skinColorList;
+		List<SkinToneDto> colorList = ColorConstants.skinColorTone.get(type);
 		for (int i = 0; i < colorList.size(); i++) {
 			Photo photo = photoService.getUnUsedPhoto(type);
-			String tempResult = qrCodeService.getQRCodeSvg(backGroundColor, "https://www.warrior.town/gallery/details?id=" + photo.getId(), 150, 150, false);
+			String tempResult = qrCodeService.getQRCodeSvg(backGroundColor, 
+					"https://www.warrior.town/gallery/details?id=" + photo.getId(), 150, 150, true);
 			String content = header + result + tempResult +footer;
 			String name = photo.getId()+"_" + photo.getName().split(" ")[1] +"_"+ photo.getType();
 			Path fileName = Path.of(outputPath + "/svg/" + name + ".svg");
 			Path jsonFile = Path.of(outputPath + "/json/" + name + ".json");
-			String[] stringColor = colorList.get(i).split(",");
+			String[] stringColor = colorList.get(i).getRgbColor().split(",");
 			int[] intColor = new int[3];
 			for (int j = 0; j < stringColor.length; j++) {
 				intColor[j] = Integer.valueOf(stringColor[j]);
@@ -123,10 +128,10 @@ public class SVGCreationService {
 			int[] skin_darkest_color = { intColor[0] - 50, intColor[1] - 50, intColor[2] - 50 };
 			String skin_darkest = "rgb(" + Arrays.toString(skin_darkest_color).replace("[", "").replace("]", "") + ")";
 			content = content.replaceAll("#8c3515", skin_darkest);
-			String json = metadataService.createJSONObject(photo, stack, type);
+			String json = metadataService.createJSONObject(photo, stack, type,colorList.get(i).getColorName());
 			try {
 				Files.writeString(fileName, content);
-				Files.writeString(jsonFile, json);
+			    Files.writeString(jsonFile, json);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

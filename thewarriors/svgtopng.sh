@@ -8,6 +8,7 @@
     out=${name}.png
     echo "basename $out file..";
     inkscape $f -o $out
+    convert -trim $out $out
     echo "Processing $f file completed.."; 
  done
  
