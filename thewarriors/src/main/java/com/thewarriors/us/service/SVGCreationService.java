@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.thewarriors.us.dto.SkinToneDto;
 import com.thewarriors.us.entity.Photo;
-import com.thewarriors.us.utility.ColorConstants;
+import com.thewarriors.us.utility.LayerConstants;
 
 @Service
 public class SVGCreationService {
@@ -56,7 +56,7 @@ public class SVGCreationService {
         			continue;
         		}
 				if (file.getAbsoluteFile().toString().contains("Background")) {
-					backGroundColor = ColorConstants.backGroundColorMap.get(file.getName());
+					backGroundColor = LayerConstants.backGroundColorMap.get(file.getName());
 				}
 				if (visited.contains(file.getPath())) {
 					continue;
@@ -99,7 +99,7 @@ public class SVGCreationService {
 		if (file.mkdir()) {
 			System.out.println("The new directory is created.");
 		} 
-		List<SkinToneDto> colorList = ColorConstants.skinColorTone.get(type);
+		List<SkinToneDto> colorList = LayerConstants.skinColorTone.get(type);
 		for (int i = 0; i < colorList.size(); i++) {
 			Photo photo = photoService.getUnUsedPhoto(type);
 			String tempResult = qrCodeService.getQRCodeSvg(backGroundColor, 
@@ -128,7 +128,7 @@ public class SVGCreationService {
 			int[] skin_darkest_color = { intColor[0] - 50, intColor[1] - 50, intColor[2] - 50 };
 			String skin_darkest = "rgb(" + Arrays.toString(skin_darkest_color).replace("[", "").replace("]", "") + ")";
 			content = content.replaceAll("#8c3515", skin_darkest);
-			String json = metadataService.createJSONObject(photo, stack, type,colorList.get(i).getColorName());
+			String json = metadataService.createJSONObject(photo, stack, type,colorList.get(i).getColorName().toUpperCase());
 			try {
 				Files.writeString(fileName, content);
 			    Files.writeString(jsonFile, json);

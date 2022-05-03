@@ -1,11 +1,13 @@
  #!/bin/bash
  cd $1
- cd aws
  for f in *.png; 
  do 
-   echo "Processing $f file..";  
-   name=$(echo "$f" | cut -f 1 -d '.')
-   echo "${name##*_}"
-   echo "${name#*_}.png"
-   #mv $f "${name%%_*}.png"
+    echo "Copying $f file.."; 
+    name=$(echo "$f" | cut -f 1 -d '.')
+    echo $name
+    aws="${name%%_*}.jpg"
+    convert -quality 85 $f $aws
+    echo $aws
+    rm $f
+    echo "Processing $f file completed.."; 
  done

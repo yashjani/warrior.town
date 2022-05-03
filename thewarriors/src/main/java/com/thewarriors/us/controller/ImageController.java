@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.thewarriors.us.dto.FilterDto;
+import com.thewarriors.us.dto.LayersDto;
 import com.thewarriors.us.dto.PhotoDto;
 import com.thewarriors.us.dto.PhotoFilterRquest;
 import com.thewarriors.us.service.MetadataService;
@@ -29,7 +29,7 @@ public class ImageController {
 	MetadataService metadataService;
 		
 	@GetMapping(path = "/filters")
-	public List<FilterDto>  getSumoFilters() {
+	public List<LayersDto>  getSumoFilters() {
 		return metadataService.getLayers();
 	}
 	

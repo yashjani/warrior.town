@@ -1,7 +1,5 @@
 package com.thewarriors.us.service;
 
-import static java.lang.System.out;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -11,9 +9,6 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
-import java.io.File;
-
-import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
 
