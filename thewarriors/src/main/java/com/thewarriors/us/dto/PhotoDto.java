@@ -7,10 +7,7 @@ public class PhotoDto {
 	private String id;
 	private String name;
 	private String openseaLink;
-	private String awsLink;
-	private String backgroundColor;
 	private List<SumoLayerDto> details;
-	private int pageNumber;
 
 	public String getId() {
 		return id;
@@ -44,33 +41,10 @@ public class PhotoDto {
 		this.details = details;
 	}
 
-	public int getPageNumber() {
-		return pageNumber;
-	}
-
-	public void setPageNumber(int pageNumber) {
-		this.pageNumber = pageNumber;
-	}
-
-	public String getAwsLink() {
-		return awsLink;
-	}
-
-	public void setAwsLink(String awsLink) {
-		this.awsLink = awsLink;
-	}
-	
-	public String getBackgroundColor() {
-		return backgroundColor;
-	}
-
-	public void setBackgroundColor(String backgroundColor) {
-		this.backgroundColor = backgroundColor;
-	}
-
 	@Override
 	public String toString() {
-		return "PhotoDto [id=" + id + ", name=" + name + ", openseaLink=" + openseaLink + ", awsLink=" + awsLink
-				+ ", backgroundColor=" + backgroundColor + ", details=" + details + ", pageNumber=" + pageNumber + "]";
+		return "PhotoDto [id=" + id + ", name=" + name + ", openseaLink=" + openseaLink + ", details=" + details + "]";
 	}
+
+	
 }

@@ -26,7 +26,7 @@ public class SumoLayer {
 	private String name;
 	private String description;
 
-	@ManyToMany(targetEntity = Photo.class, mappedBy = "sumolayers", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(targetEntity = Photo.class, mappedBy = "sumolayers", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Photo> photos;
 
 	public Long getId() {

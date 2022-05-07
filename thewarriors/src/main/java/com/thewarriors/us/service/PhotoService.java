@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.thewarriors.us.dao.SumoLayerDao;
 import com.thewarriors.us.dto.FilterDto;
 import com.thewarriors.us.dto.PhotoDto;
 import com.thewarriors.us.dto.PhotoFilterRquest;
@@ -25,10 +25,17 @@ import com.thewarriors.us.repo.SumoLayerRepository;
 import com.thewarriors.us.utility.EnitytoDtoConversion;
 
 @Service
+@Transactional
 public class PhotoService {
 
 	@Autowired
 	PhotoRepository photoRepository;
+
+	@Autowired
+	SumoLayerDao dumoLayerDao;
+
+	@Autowired
+	CacheManager cacheManager;
 
 	@Autowired
 	SumoLayerRepository sumoLayerRepository;
@@ -77,7 +84,7 @@ public class PhotoService {
 		Set<Long> photoIds = new HashSet<>();
 		if (photoFilterRquest == null || photoFilterRquest.getFilters() == null
 				|| photoFilterRquest.getFilters().isEmpty()) {
-			Iterable<Photo> photoList = photoRepository.findByIsUsed(true);
+			List<Photo> photoList = photoRepository.findByIsUsed(true);
 			for (Photo photo : photoList) {
 				resultPhoto.add(EnitytoDtoConversion.photoDtoconversion(photo, false));
 			}
@@ -88,8 +95,11 @@ public class PhotoService {
 						|| filter.getFilterType() == null) {
 					continue;
 				}
-				List<SumoLayer> sumoLayers = sumoLayerRepository.findByTypeAndDescription(filter.getFilterType(),
-						filter.getFilterName());
+				List<SumoLayer> sumoLayers = new ArrayList<>();
+				for (String filterName : filter.getFilterName()) {
+					sumoLayers.addAll(sumoLayerRepository.findByTypeAndDescription(filter.getFilterType(), filterName));
+				}
+
 				for (SumoLayer layer : sumoLayers) {
 					for (Photo photo : layer.getPhotos()) {
 						if (!photoIds.contains(photo.getId())) {
@@ -98,7 +108,6 @@ public class PhotoService {
 						photoIds.add(photo.getId());
 					}
 				}
-
 			}
 		}
 

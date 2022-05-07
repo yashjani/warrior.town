@@ -12,7 +12,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.thewarriors.us.dao.SumoLayerDao;
 import com.thewarriors.us.dto.LayerDto;
 import com.thewarriors.us.dto.LayersDto;
 import com.thewarriors.us.dto.PhotoDto;
@@ -21,10 +23,11 @@ import com.thewarriors.us.entity.Photo;
 import com.thewarriors.us.entity.SumoLayer;
 import com.thewarriors.us.repo.PhotoRepository;
 import com.thewarriors.us.repo.SumoLayerRepository;
-import com.thewarriors.us.utility.LayerConstants;
 import com.thewarriors.us.utility.EnitytoDtoConversion;
+import com.thewarriors.us.utility.LayerConstants;
 
 @Service
+@Transactional
 public class MetadataService {
 	
 	@Autowired
@@ -32,6 +35,9 @@ public class MetadataService {
 	
 	@Autowired
 	PhotoRepository photoRepository;
+	
+	@Autowired
+	SumoLayerDao sumoLayerDao;
 	
 	
 	
@@ -145,7 +151,8 @@ public class MetadataService {
 			layerDto.setCount(sumoLayer.getPhotos().size());
 			map.get(sumoLayer.getName()).getLayers().add(layerDto);
 		}
-		return new ArrayList<>(map.values());
+		List<LayersDto> layers = new ArrayList<>(map.values());
+		return layers;
 
 	}
 	
