@@ -74,7 +74,6 @@ public class PhotoService {
 
 	public List<PhotoDto> getPhotos(PhotoFilterRquest photoFilterRquest) {
 		List<PhotoDto> resultPhoto = new ArrayList<>();
-		Pageable paging = PageRequest.of(photoFilterRquest.getPageNumber(), 10);
 		Set<Long> photoIds = new HashSet<>();
 		if (photoFilterRquest == null || photoFilterRquest.getFilters() == null
 				|| photoFilterRquest.getFilters().isEmpty()) {
@@ -89,8 +88,8 @@ public class PhotoService {
 						|| filter.getFilterType() == null) {
 					continue;
 				}
-				Page<SumoLayer> sumoLayers = sumoLayerRepository.findByTypeAndDescription(filter.getFilterType(),
-						filter.getFilterName(), paging);
+				List<SumoLayer> sumoLayers = sumoLayerRepository.findByTypeAndDescription(filter.getFilterType(),
+						filter.getFilterName());
 				for (SumoLayer layer : sumoLayers) {
 					for (Photo photo : layer.getPhotos()) {
 						if (!photoIds.contains(photo.getId())) {

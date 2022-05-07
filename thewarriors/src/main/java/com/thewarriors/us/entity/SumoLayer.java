@@ -16,20 +16,18 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "sumolayer")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class SumoLayer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	 private String name;
-	 private String description;
-	 
-	 @ManyToMany(targetEntity = Photo.class, mappedBy = "sumolayers", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	 private List<Photo> photos;
+
+	private String name;
+	private String description;
+
+	@ManyToMany(targetEntity = Photo.class, mappedBy = "sumolayers", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Photo> photos;
 
 	public Long getId() {
 		return id;
@@ -62,7 +60,5 @@ public class SumoLayer {
 	public void setPhotos(List<Photo> photos) {
 		this.photos = photos;
 	}
-
-	 
 
 }
