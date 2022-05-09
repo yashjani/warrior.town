@@ -42,7 +42,8 @@ public class PhotoService {
 
 	public void saveName() throws IOException {
 		File file = new File("./name.txt");
-		String names = Files.readString(Path.of(file.getPath()));
+		String names = null;
+			//	Files.readString(Path.of(file.getPath()));
 		String[] nameArr = names.split(",");
 		String[] types = { "Gold", "Silver", "Bronze" };
 		Set<String> nameSet = new HashSet<>();

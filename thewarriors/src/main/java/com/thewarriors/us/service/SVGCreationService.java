@@ -63,7 +63,7 @@ public class SVGCreationService {
 				}
 				try {
 					result += "<!-- Remove me " + order.get(index) + "-->";
-					result += Files.readString(Path.of(file.getPath()));
+		//			result += Files.readString(Path.of(file.getPath()));
 					String separator = "\\";
 					String[] arr = file.getPath().replaceAll(Pattern.quote(separator), "\\\\").split("/");
 					int length = arr.length;
@@ -106,8 +106,10 @@ public class SVGCreationService {
 					"https://www.warrior.town/gallery/details?id=" + photo.getId(), 150, 150, true);
 			String content = header + result + tempResult +footer;
 			String name = photo.getId()+"_" + photo.getName().split(" ")[1] +"_"+ photo.getType();
-			Path fileName = Path.of(outputPath + "/svg/" + name + ".svg");
-			Path jsonFile = Path.of(outputPath + "/json/" + name + ".json");
+			Path fileName = null;
+					//Path.of(outputPath + "/svg/" + name + ".svg");
+			Path jsonFile = null;
+					// Path.of(outputPath + "/json/" + name + ".json");
 			String[] stringColor = colorList.get(i).getRgbColor().split(",");
 			int[] intColor = new int[3];
 			for (int j = 0; j < stringColor.length; j++) {
@@ -129,12 +131,12 @@ public class SVGCreationService {
 			String skin_darkest = "rgb(" + Arrays.toString(skin_darkest_color).replace("[", "").replace("]", "") + ")";
 			content = content.replaceAll("#8c3515", skin_darkest);
 			String json = metadataService.createJSONObject(photo, stack, type,colorList.get(i).getColorName().toUpperCase());
-			try {
-				Files.writeString(fileName, content);
-			    Files.writeString(jsonFile, json);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				Files.writeString(fileName, content);
+//		        Files.writeString(jsonFile, json);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 		}
 
 		System.out.println("One round completed");
