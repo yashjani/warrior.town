@@ -18,8 +18,6 @@ import com.thewarriors.us.repo.PhotoRepository;
 import com.thewarriors.us.repo.SumoLayerRepository;
 import com.thewarriors.us.service.MetadataService;
 import com.thewarriors.us.service.PhotoService;
-import com.thewarriors.us.service.QRCodeService;
-import com.thewarriors.us.service.SVGCreationService;
 
 @SpringBootApplication
 @EnableCaching
@@ -27,9 +25,6 @@ public class TheWarrior implements ApplicationRunner {
 
 	@Autowired
 	PhotoService photoService;
-
-	@Autowired
-	SVGCreationService svgCreationService;
 
 	@Autowired
 	PhotoRepository photoRepository;
@@ -40,9 +35,7 @@ public class TheWarrior implements ApplicationRunner {
 	@Autowired
 	MetadataService metadataService;
 
-	@Autowired
-	QRCodeService codeService;
-	
+
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -52,31 +45,6 @@ public class TheWarrior implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		// // photoService.saveName();
-		// metadataService.addNewLayers();
-		// File file = new File("./sumo/Gold/output");
-		// file.mkdir();
-		// file = new File("./sumo/Gold/output/aws");
-		// file.mkdir();
-		// file = new File("./sumo/Gold/output/opensea");
-		// file.mkdir();
-		// svgCreationService.dfs(0, new HashSet<>(), LayerConstants.goldOrder, new Stack<>(), "", "", "GOLD");
-		
-		// file = new File("./sumo/Silver/output");
-		// file.mkdir();
-		// file = new File("./sumo/Silver/output/aws");
-		// file.mkdir();
-		// file = new File("./sumo/Silver/output/opensea");
-		// file.mkdir();
-		// svgCreationService.dfs(0, new HashSet<>(), LayerConstants.silverOrder, new Stack<>(), "", "", "SILVER");
-		
-		// file = new File("./sumo/Bronze/output");
-		// file.mkdir();
-		// file = new File("./sumo/Bronze/output/aws");
-		// file.mkdir();
-		// file = new File("./sumo/Bronze/output/opensea");
-		// file.mkdir();
-		// svgCreationService.dfs(0, new HashSet<>(), LayerConstants.bronzeOrder, new Stack<>(), "", "", "BRONZE");
 	
 
 	}
