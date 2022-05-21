@@ -15,7 +15,6 @@ public class EnitytoDtoConversion {
 		photoDto.setId(String.valueOf(photo.getId()));
 		String[] arr = photo.getName().split(" ");
 		photoDto.setName(arr[1]+" " + arr[0]);
-		//photoDto.setOpenseaLink("https://d18kpicgcaxrrw.cloudfront.net/thumbnail/"+photo.getId()+".jpg");
 		//photoDto.setAwsLink("https://d18kpicgcaxrrw.cloudfront.net/thumbnail/"+photo.getId()+".jpg");
 		if(includeDetails) {
 			List<SumoLayer> sumoLayers = photo.getSumolayers();
@@ -27,6 +26,7 @@ public class EnitytoDtoConversion {
 				sumoLayerDto.setName(sumoLayer.getName());
 				details.add(sumoLayerDto);
 			}
+			photoDto.setOpenseaLink(photo.getOpenseaLink());
 			photoDto.setDetails(details);
 		}
 		return photoDto;

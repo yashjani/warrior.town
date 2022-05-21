@@ -13,7 +13,7 @@ import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 
-@Configuration
+//@Configuration
 public class BotConfiguration {
 
 	Logger logger = LoggerFactory.getLogger(BotConfiguration.class);

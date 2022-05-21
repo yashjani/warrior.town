@@ -19,7 +19,7 @@ import com.thewarriors.us.service.PhotoService;
 
 @RestController
 @RequestMapping("gallery")
-@CrossOrigin(origins = { "https://www.warrior.town","http://127.0.0.1:3000" })
+@CrossOrigin(origins = { "https://www.warrior.town"})
 public class ImageController {
 	
 	
