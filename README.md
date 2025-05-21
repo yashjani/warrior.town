@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/Java-Backend-blue?style=for-the-badge&logo=java&logoColor=white" />
   <img src="https://img.shields.io/badge/Maven-Build-red?style=for-the-badge&logo=apachemaven&logoColor=white" />
   <img src="https://img.shields.io/badge/Shell-Scripts-green?style=for-the-badge&logo=gnu-bash&logoColor=white" />
-  <a href="https://x.com/warrior_town" target="_blank">
+  <a href="https://opensea.io/collection/warrior-town" target="_blank">
     <img src="https://img.shields.io/badge/Follow-@warrior_town-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" />
   </a>
 </p>
